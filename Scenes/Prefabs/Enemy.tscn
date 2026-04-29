@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmo8oyebh8c66"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n345m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8k53p"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gti1y"]
+material = SubResource("StandardMaterial3D_8k53p")
+
+[node name="Enemy" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Enemies"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_n345m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_gti1y")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.5, -0.46)
+omni_range = 0.05
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.5, -0.46)
+omni_range = 0.05
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.6
+target_desired_distance = 1.5
+avoidance_enabled = true
+height = 2.0
+neighbor_distance = 20.0
+use_3d_avoidance = true
+avoidance_layers = 8
+avoidance_mask = 13
+debug_enabled = true

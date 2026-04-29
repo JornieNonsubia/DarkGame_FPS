@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://c2p41yl51fs33"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ops8w"]
+height = 5.0
+radius = 8.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bsnf8"]
+height = 1.1011047
+
+[node name="RocketTurretReal" type="Area3D" unique_id=1798268433]
+
+[node name="Head" type="Node3D" parent="." unique_id=829649187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=760153073]
+target_position = Vector3(0, 0, -15)
+collision_mask = 8
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Head" unique_id=1260350788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Head/CSGCombiner3D" unique_id=591605460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+radius = 0.1
+height = 0.8
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Head/CSGCombiner3D" unique_id=228020697]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5, 0)
+radius = 0.1
+height = 0.8
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Head/CSGCombiner3D/CSGCylinder3D2" unique_id=774667591]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.100000024, -0.45000002, -0.1)
+size = Vector3(0.5, 0.5, 0.6)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D" unique_id=1532244561]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.1, 0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D" unique_id=1277658743]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.1, 0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D" unique_id=1202083822]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.1, -0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D" unique_id=1260959859]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.1, -0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Head/CSGCombiner3D/CSGCylinder3D2" unique_id=116271786]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.100000024, 0.44999996, -0.1)
+size = Vector3(0.5, 0.5, 0.6)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D2" unique_id=1423971846]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.1, 0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D2" unique_id=1701996271]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.1, 0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D2" unique_id=2095804651]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.1, -0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Head/CSGCombiner3D/CSGCylinder3D2/CSGBox3D2" unique_id=1700992832]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.1, -0.1, -0.3)
+radius = 0.05
+height = 0.01
+
+[node name="Area3D" type="Area3D" parent="." unique_id=906863333]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2127072474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("CylinderShape3D_ops8w")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1862114491]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.099999994, 0)
+size = Vector3(1, 0.2, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=169763114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CylinderShape3D_bsnf8")
