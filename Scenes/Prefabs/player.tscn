@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d3508mkvd2nmq" path="res://Scripts/Player/PlayerController.cs" id="1_juxdh"]
 [ext_resource type="Script" uid="uid://cb74nfecxve0d" path="res://Scripts/Player/CameraController.cs" id="2_4qbli"]
 [ext_resource type="Script" uid="uid://duushkifuf88m" path="res://Scripts/Player/Components/InteractionRaycast.cs" id="4_405c5"]
+[ext_resource type="Script" uid="uid://dodfsd4ugd7nk" path="res://Scripts/Player/CameraEffects.cs" id="4_dfo05"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_08u7w"]
 [ext_resource type="Script" uid="uid://daf37tg7i25sf" path="res://Scripts/Player/Components/MouseCaptureComponent.cs" id="5_hck1p"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_knrd4"]
@@ -30,15 +31,16 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q7l0e"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1534748191 node_paths=PackedStringArray("Head", "stateChart", "CrouchCheck", "interectionRaycast", "_standingCollision", "_crouchingCollision")]
+[node name="Player" type="CharacterBody3D" unique_id=1534748191 node_paths=PackedStringArray("Head", "CameraEffects", "stateChart", "CrouchCheck", "InterectionRaycast", "_standingCollision", "_crouchingCollision")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_juxdh")
 Head = NodePath("Head")
+CameraEffects = NodePath("Head/Camera3D")
 stateChart = NodePath("StateChart")
 CrouchCheck = NodePath("CrouchCheck")
-interectionRaycast = NodePath("Head/Camera3D/InteractionRaycast")
+InterectionRaycast = NodePath("Head/Camera3D/InteractionRaycast")
 _standingCollision = NodePath("StandingCollision")
 _crouchingCollision = NodePath("CrouchingCollision")
 
@@ -76,10 +78,12 @@ script = ExtResource("2_4qbli")
 _playerController = NodePath("..")
 _componentMouseCapture = NodePath("../Components/MouseCapture")
 
-[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1556793389]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1556793389 node_paths=PackedStringArray("Player")]
 current = true
 fov = 65.0
 far = 500.0
+script = ExtResource("4_dfo05")
+Player = NodePath("../..")
 
 [node name="InteractionRaycast" type="RayCast3D" parent="Head/Camera3D" unique_id=1921492014]
 target_position = Vector3(0, 0, -3)

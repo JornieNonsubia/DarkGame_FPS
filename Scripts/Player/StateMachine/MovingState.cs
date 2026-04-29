@@ -10,7 +10,7 @@ public partial class MovingState : PlayerStateMachine
         {
             PlayerController.stateChart.Call("send_event", "onIdle");
         }
-        if (Input.IsActionJustPressed("Dash"))
+        if (Input.IsActionJustPressed("Dash") && PlayerController.CanDash)
         {
             PlayerController.stateChart.Call("send_event", "onDashing");
         }

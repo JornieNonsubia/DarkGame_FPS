@@ -2,7 +2,7 @@ using Godot;
 
 public partial class InteractionRaycast : RayCast3D
 {
-    public GodotObject currentObject;
+    private GodotObject currentObject;
 
     public override void _Process(double delta)
     {
