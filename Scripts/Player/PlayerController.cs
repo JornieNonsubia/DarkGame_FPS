@@ -6,12 +6,12 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("References")]
     [Export] public CameraController Head;
     [Export] public CameraEffects CameraEffects;
-    [Export] public Node StateChart;
     [Export] public ShapeCast3D CrouchCheck;
     [Export] public RayCast3D InteractionRaycast;
     [Export] public CollisionShape3D StandingCollision;
     [Export] public CollisionShape3D CrouchingCollision;
     [Export] public StepHandlerComponent StepHandler;
+    [Export] public Node StateChart;
 
     [ExportCategory("Movement")]
     [Export] public float FallVelocityThreshold = -5f;
@@ -28,6 +28,7 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("DataHelpers")]
     [Export] public Vector3 DataRelativeVelocity;
 
+
     private float _currentFallVelocity;
     private Vector3 _previousVelocity;
     private Vector2 _inputDir = Vector2.Zero;
@@ -37,7 +38,7 @@ public partial class PlayerController : CharacterBody3D
     private float _sprintModifier = 1;
     private float _crouchModifier = 1;
     private float _speed = 0;
-    
+
     // Dash
     private float _dashCooldownTimer = 0f;
     private bool _canDash = true;
@@ -48,7 +49,9 @@ public partial class PlayerController : CharacterBody3D
     public float CurrentFallVelocity { get => _currentFallVelocity; set => _currentFallVelocity = value; }
     public Vector3 PreviousVelocity { get => _previousVelocity; }
     public Vector2 InputDir { get => _inputDir; }
-    
+
+
+
     public override void _PhysicsProcess(double delta)
     {
         float fDelta = (float)delta;
@@ -61,12 +64,12 @@ public partial class PlayerController : CharacterBody3D
 
         if (IsOnFloor())
             StepHandler.HandleStepClimbing();
-        
+
         if (!IsOnFloor())
             Velocity += GetGravity() * fDelta;
 
         _previousVelocity = Velocity;
-        
+
         // Modifying our speed with modifiers
         _speed = _defaultSpeed * _crouchModifier * _sprintModifier;
 
@@ -113,7 +116,7 @@ public partial class PlayerController : CharacterBody3D
             return false;
         }
     }
-    
+
     // ===== Methods for States =====
 
     public void Sprint()
@@ -146,8 +149,6 @@ public partial class PlayerController : CharacterBody3D
 
     public void Dash()
     {
-        
-        
         _dashCooldownTimer = _dashCooldown;
         _canDash = false;
         Vector3 dashDirection = Vector3.Zero;

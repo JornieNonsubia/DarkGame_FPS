@@ -9,6 +9,7 @@ public partial class InteractionRaycast : RayCast3D
         if (IsColliding())
         {
             GodotObject targetObject = GetCollider();
+
             if (targetObject == _currentObject)
                 return;
             else

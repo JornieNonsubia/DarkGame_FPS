@@ -3,7 +3,6 @@
 // ReSharper disable once CheckNamespace
 namespace GodotStateCharts
 {
-    using System;
     using Godot;
     
     /// <summary>

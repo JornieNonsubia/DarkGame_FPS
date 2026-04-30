@@ -1,18 +1,18 @@
 using Godot;
-using System;
 
 public partial class CrouchingState : PlayerStateMachine
 {
     void OnCrouchingStatePhysicsProcessing(double delta)
     {
-        PlayerController.Head.UpdateCameraHeight(delta,-1);
-        if (!Input.IsActionPressed("Crouch") && PlayerController.IsOnFloor() && !PlayerController.CrouchCheck.IsColliding())
+        _player.Head.UpdateCameraHeight(delta, -1);
 
-            PlayerController.StateChart.Call("send_event", "onStanding");
+        if (!Input.IsActionPressed("Crouch") && _player.IsOnFloor() && !_player.CrouchCheck.IsColliding())
+
+            _player.StateChart.Call("send_event", "onStanding");
     }
 
     void OnCrouchingStateEntered()
     {
-        PlayerController.Crouch();
+        _player.Crouch();
     }
 }

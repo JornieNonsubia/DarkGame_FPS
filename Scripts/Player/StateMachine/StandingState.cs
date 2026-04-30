@@ -1,19 +1,19 @@
 using Godot;
-using System;
 
 public partial class StandingState : PlayerStateMachine
 {
     void OnStandingStatePhysicsProcessing(double delta)
     {
-        PlayerController.Head.UpdateCameraHeight(delta, 1);
-        if (Input.IsActionPressed("Crouch") && PlayerController.IsOnFloor())
+        _player.Head.UpdateCameraHeight(delta, 1);
+
+        if (Input.IsActionPressed("Crouch") && _player.IsOnFloor())
         {
-            PlayerController.StateChart.Call("send_event", "onCrouching");
+            _player.StateChart.Call("send_event", "onCrouching");
         }
     }
 
     void OnStandingStateEntered()
     {
-        PlayerController.Stand();
+        _player.Stand();
     }
 }

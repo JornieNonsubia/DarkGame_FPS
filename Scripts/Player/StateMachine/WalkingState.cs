@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class WalkingState : PlayerStateMachine
 {
@@ -7,12 +6,12 @@ public partial class WalkingState : PlayerStateMachine
     {
         if (Input.IsActionPressed("Sprint"))
         {
-            PlayerController.StateChart.Call("send_event", "onSprinting");
+            _player.StateChart.Call("send_event", "onSprinting");
         }
     }
 
     void OnWalkingStateEntered()
     {
-        PlayerController.Walk();
+        _player.Walk();
     }
 }

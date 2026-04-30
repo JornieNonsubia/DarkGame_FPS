@@ -3,7 +3,6 @@
 namespace GodotStateCharts
 {
     using Godot;
-    using System;
 
     /// <summary>
     /// Wrapper around the GDScript state chart node. Allows interacting with the state chart.

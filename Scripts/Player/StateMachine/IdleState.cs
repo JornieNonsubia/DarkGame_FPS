@@ -1,13 +1,10 @@
-using Godot;
-using System;
-
 public partial class IdleState : PlayerStateMachine
 {
     private void OnIdleStatePhysicsProcessing(double delta)
     {
-        if (PlayerController != null && PlayerController.InputDir.Length() > 0)
+        if (_player != null && _player.InputDir.Length() > 0)
         {
-            PlayerController.StateChart.Call("send_event", "onMoving");
+            _player.StateChart.Call("send_event", "onMoving");
         }
     }
 }

@@ -1,16 +1,15 @@
-using Godot;
-using System;
-
 public partial class AirborneState : PlayerStateMachine
 {
     private void OnAirborneStatePhysicsProcessing(double delta)
     {
-        if (PlayerController.IsOnFloor())
+        if (_player.IsOnFloor())
         {
-            if (PlayerController.CheckFallSpeed())
-                PlayerController.CameraEffects.AddFallKick(2f);
-            PlayerController.StateChart.Call("send_event", "onGrounded");
+            if (_player.CheckFallSpeed())
+                _player.CameraEffects.AddFallKick(2f);
+
+            _player.StateChart.Call("send_event", "onGrounded");
         }
-        PlayerController.CurrentFallVelocity = PlayerController.Velocity.Y;
+
+        _player.CurrentFallVelocity = _player.Velocity.Y;
     }
 }

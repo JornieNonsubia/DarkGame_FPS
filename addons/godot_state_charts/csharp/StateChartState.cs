@@ -3,7 +3,6 @@
 namespace GodotStateCharts
 {
     using Godot;
-    using System;
 
     /// <summary>
     /// A wrapper around the state node that allows interacting with it from C#.

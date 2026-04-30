@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using Range = Godot.Range;
 
 public partial class CameraController : Node3D
 {
@@ -43,6 +41,7 @@ public partial class CameraController : Node3D
         if (_stepSmoothing)
         {
             _targetHeight = Mathf.Lerp(_targetHeight, 0f, _stepSpeed * fDelta);
+
             if (Mathf.Abs(_targetHeight) < 0.01)
             {
                 _targetHeight = 0;
@@ -63,15 +62,17 @@ public partial class CameraController : Node3D
         Vector3 playerRotation = new Vector3(0f, _rotation.Y, 0f);
         Vector3 cameraRotation = new Vector3(_rotation.X, 0f, 0f);
 
-        Basis = Basis.FromEuler(cameraRotation, EulerOrder.Yxz);
+        Basis = Basis.FromEuler(cameraRotation);
         _player.UpdateRotation(playerRotation);
     }
 
     public void UpdateCameraHeight(double delta, int direction)
     {
         float fDelta = (float)delta;
+
         if (_offsetHeight >= _crouchOffset && _offsetHeight <= DefaultHeight)
             _offsetHeight = Mathf.Clamp(_offsetHeight + (_crouchingStateChangeSpeed * direction) * fDelta, _crouchOffset, DefaultHeight);
+
         if (Position.Y >= _crouchOffset && Position.Y <= DefaultHeight)
         {
             Vector3 pos = Position;

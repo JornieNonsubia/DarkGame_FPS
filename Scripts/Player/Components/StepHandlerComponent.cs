@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using System.Globalization;
 
 public partial class StepHandlerComponent : Node
 {
@@ -36,11 +37,11 @@ public partial class StepHandlerComponent : Node
                     _player.GlobalPosition = playerGlobalPosition;
                     _player.Velocity = _player.PreviousVelocity;
                     _player.Head.SmoothStep(measuredHeight);
-                    _stepStatus = "Step Found! Height: " + measuredHeight.ToString();
+                    _stepStatus = "Step Found! Height: " + measuredHeight.ToString(CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    _stepStatus = "Step Too High: " + measuredHeight.ToString();
+                    _stepStatus = "Step Too High: " + measuredHeight.ToString(CultureInfo.InvariantCulture);
                 }
                 break;
             }

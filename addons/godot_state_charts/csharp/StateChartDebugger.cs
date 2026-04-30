@@ -2,7 +2,6 @@
 namespace GodotStateCharts
 {
     using Godot;
-    using System;
 
     /// <summary>
     /// Wrapper around the state chart debugger node.

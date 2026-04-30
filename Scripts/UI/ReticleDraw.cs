@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 [Tool]
 public partial class ReticleDraw : Control
@@ -63,10 +62,10 @@ public partial class ReticleDraw : Control
         // Визначення квадрантів (початок та кінець дуги)
         float[][] arcSegments = new float[][]
         {
-            new float[] { gapRad / 2, Mathf.Pi / 2 - gapRad / 2 },
-            new float[] { Mathf.Pi / 2 + gapRad / 2, Mathf.Pi - gapRad / 2 },
-            new float[] { Mathf.Pi + gapRad / 2, 3 * Mathf.Pi / 2 - gapRad / 2 },
-            new float[] { 3 * Mathf.Pi / 2 + gapRad / 2, 2 * Mathf.Pi - gapRad / 2 }
+            [gapRad / 2, Mathf.Pi / 2 - gapRad / 2],
+            [Mathf.Pi / 2 + gapRad / 2, Mathf.Pi - gapRad / 2],
+            [Mathf.Pi + gapRad / 2, 3 * Mathf.Pi / 2 - gapRad / 2],
+            [3 * Mathf.Pi / 2 + gapRad / 2, 2 * Mathf.Pi - gapRad / 2]
         };
 
         foreach (var arc in arcSegments)

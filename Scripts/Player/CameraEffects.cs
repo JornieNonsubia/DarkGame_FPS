@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class CameraEffects : Camera3D
 {
@@ -26,16 +25,16 @@ public partial class CameraEffects : Camera3D
     [ExportSubgroup("Damage Kick")]
     [Export] public float DamageTime = 0.3f; // in secs
     [ExportSubgroup("Weapon Kick")]
-    [Export] public float WeaponDecay = 0.5f;
+    [Export] public float WeaponDecay = 1f;
     [ExportSubgroup("Headbob")]
     [Export(PropertyHint.Range, "0.0,0.1,0.001")]
-    private float bobPitch = 0.05f;
+    private float _bobPitch = 0.05f;
     [Export(PropertyHint.Range, "0.0,0.1,0.001")]
-    private float bobRoll = 0.025f;
+    private float _bobRoll = 0.025f;
     [Export(PropertyHint.Range, "0.0,0.04,0.001")]
-    private float bobUp = 0.005f;
+    private float _bobUp = 0.005f;
     [Export(PropertyHint.Range, "3.0,8.1,0.1")]
-    private float bobFrequency = 6f;
+    private float _bobFrequency = 6f;
 
 
     // Fall Kick vars
@@ -62,11 +61,8 @@ public partial class CameraEffects : Camera3D
         CalculateViewOffset(delta);
 
         if (Input.IsActionJustPressed("LMB"))
-            AddFallKick(2f);
-        if (Input.IsActionPressed("RMB"))
-        {
-            AddWeaponKick(1f, 0.15f, 0.2f);
-        }
+            AddWeaponKick(4f, 2f, 2f);
+        
     }
 
     void CalculateViewOffset(double delta)
@@ -81,7 +77,7 @@ public partial class CameraEffects : Camera3D
         float speed = new Vector2(vel.X, vel.Z).Length();
         if (speed > 0.1f && Player.IsOnFloor())
         {
-            _stepTimer += fDelta * (speed / bobFrequency);
+            _stepTimer += fDelta * (speed / _bobFrequency);
             _stepTimer %= 1f;
         }
         else
@@ -144,13 +140,13 @@ public partial class CameraEffects : Camera3D
         // HeadBob
         if (EnableHeadBob)
         {
-            float pitchDelta = (float)bobSin * Mathf.DegToRad(bobPitch) * speed;
+            float pitchDelta = (float)bobSin * Mathf.DegToRad(_bobPitch) * speed;
             angles.X -= pitchDelta;
 
-            float rollDelta = (float)bobSin * Mathf.DegToRad(bobRoll) * speed;
+            float rollDelta = (float)bobSin * Mathf.DegToRad(_bobRoll) * speed;
             angles.Z -= rollDelta;
             
-            float bobHeight = (float)bobSin * speed * bobUp;
+            float bobHeight = (float)bobSin * speed * _bobUp;
             offset.Y += bobHeight;
         }
         
