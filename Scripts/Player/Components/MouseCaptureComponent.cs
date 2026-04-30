@@ -7,8 +7,8 @@ public partial class MouseCaptureComponent : Node
 
     [ExportCategory("Mouse Capture Settings")]
     [Export] private Input.MouseModeEnum _currentMouseMode = Input.MouseModeEnum.Captured;
-    [Export] private float _mouseSensitivityModifier = 0.002f;
-    [Export(PropertyHint.Range, "1,200,1")] private float _mouseSensitivity = 50f;
+    [Export] private float _mouseSensitivityModifier = 1f;
+    [Export(PropertyHint.Range, "1,200,1")] private float _mouseSensitivity = 100f;
 
     public Vector2 MouseInput;
 
@@ -17,8 +17,8 @@ public partial class MouseCaptureComponent : Node
         if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured)
         {
             // Reducing overall mouse sens and additionally reducing it by user's percent amount 
-            MouseInput.X += -mouseMotion.ScreenRelative.X * (_mouseSensitivityModifier/100) * _mouseSensitivity;
-            MouseInput.Y += -mouseMotion.ScreenRelative.Y * (_mouseSensitivityModifier/100) * _mouseSensitivity;
+            MouseInput.X += -mouseMotion.ScreenRelative.X * (_mouseSensitivity/100) * _mouseSensitivityModifier;
+            MouseInput.Y += -mouseMotion.ScreenRelative.Y * (_mouseSensitivity/100) * _mouseSensitivityModifier;
         }
 
         if (_debug)

@@ -18,7 +18,7 @@ public partial class DashingState : PlayerStateMachine
         {
             _dashTimer -= (float)delta;
             if (_dashTimer <= 0)
-                PlayerController.stateChart.Call("send_event", "onWalking");
+                PlayerController.StateChart.Call("send_event", "onWalking");
         }
     }
 

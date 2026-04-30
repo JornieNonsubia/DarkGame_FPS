@@ -6,11 +6,12 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("References")]
     [Export] public CameraController Head;
     [Export] public CameraEffects CameraEffects;
-    [Export] public Node stateChart;
+    [Export] public Node StateChart;
     [Export] public ShapeCast3D CrouchCheck;
-    [Export] public RayCast3D InterectionRaycast;
-    [Export] protected CollisionShape3D _standingCollision;
-    [Export] protected CollisionShape3D _crouchingCollision;
+    [Export] public RayCast3D InteractionRaycast;
+    [Export] public CollisionShape3D StandingCollision;
+    [Export] public CollisionShape3D CrouchingCollision;
+    [Export] public StepHandlerComponent StepHandler;
 
     [ExportCategory("Movement")]
     [Export] public float FallVelocityThreshold = -5f;
@@ -27,8 +28,9 @@ public partial class PlayerController : CharacterBody3D
     [ExportCategory("DataHelpers")]
     [Export] public Vector3 DataRelativeVelocity;
 
-    public Vector2 InputDir = Vector2.Zero;
-    public float CurrentFallVelocity;
+    private float _currentFallVelocity;
+    private Vector3 _previousVelocity;
+    private Vector2 _inputDir = Vector2.Zero;
 
     // Movements
     private Vector3 _moveVelocity = Vector3.Zero;
@@ -43,6 +45,9 @@ public partial class PlayerController : CharacterBody3D
     public bool CanDash { get => _canDash; }
     public float DashCooldownTimer { get => _dashCooldownTimer; }
     public float Speed { get => _speed; }
+    public float CurrentFallVelocity { get => _currentFallVelocity; set => _currentFallVelocity = value; }
+    public Vector3 PreviousVelocity { get => _previousVelocity; }
+    public Vector2 InputDir { get => _inputDir; }
     
     public override void _PhysicsProcess(double delta)
     {
@@ -54,18 +59,22 @@ public partial class PlayerController : CharacterBody3D
                 _canDash = true;
         }
 
-
+        if (IsOnFloor())
+            StepHandler.HandleStepClimbing();
+        
         if (!IsOnFloor())
             Velocity += GetGravity() * fDelta;
 
-        // Crouch has
+        _previousVelocity = Velocity;
+        
+        // Modifying our speed with modifiers
         _speed = _defaultSpeed * _crouchModifier * _sprintModifier;
 
-        InputDir = Input.GetVector("StrafeLeft", "StrafeRight", "MoveForward", "MoveBackward");
+        _inputDir = Input.GetVector("StrafeLeft", "StrafeRight", "MoveForward", "MoveBackward");
 
         Vector2 currentVelocity2D = new Vector2(Velocity.X, Velocity.Z);
 
-        Vector3 direction = (Transform.Basis * new Vector3(InputDir.X, 0, InputDir.Y)).Normalized();
+        Vector3 direction = (Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
 
         if (direction != Vector3.Zero)
         {
@@ -81,6 +90,7 @@ public partial class PlayerController : CharacterBody3D
         Velocity = _moveVelocity;
 
         MoveAndSlide();
+        StepHandler.HandleStepClimbing();
     }
 
     public void UpdateRotation(Vector3 rotationInput)
@@ -92,14 +102,14 @@ public partial class PlayerController : CharacterBody3D
 
     public bool CheckFallSpeed()
     {
-        if (CurrentFallVelocity < FallVelocityThreshold)
+        if (_currentFallVelocity < FallVelocityThreshold)
         {
-            CurrentFallVelocity = 0f;
+            _currentFallVelocity = 0f;
             return true;
         }
         else
         {
-            CurrentFallVelocity = 0f;
+            _currentFallVelocity = 0f;
             return false;
         }
     }
@@ -122,16 +132,16 @@ public partial class PlayerController : CharacterBody3D
     {
         // Setting speed to 100%
         _crouchModifier = 1;
-        _crouchingCollision.Disabled = true;
-        _standingCollision.Disabled = false;
+        CrouchingCollision.Disabled = true;
+        StandingCollision.Disabled = false;
     }
 
     public void Crouch()
     {
         // Adding % speed reduction 
         _crouchModifier = _crouchSpeedPercent / 100;
-        _standingCollision.Disabled = true;
-        _crouchingCollision.Disabled = false;
+        StandingCollision.Disabled = true;
+        CrouchingCollision.Disabled = false;
     }
 
     public void Dash()
@@ -142,9 +152,9 @@ public partial class PlayerController : CharacterBody3D
         _canDash = false;
         Vector3 dashDirection = Vector3.Zero;
 
-        if (InputDir != Vector2.Zero)
+        if (_inputDir != Vector2.Zero)
         {
-            dashDirection = (Transform.Basis * new Vector3(InputDir.X, 0, InputDir.Y)).Normalized();
+            dashDirection = (Transform.Basis * new Vector3(_inputDir.X, 0, _inputDir.Y)).Normalized();
         }
 
         if (dashDirection == Vector3.Zero)

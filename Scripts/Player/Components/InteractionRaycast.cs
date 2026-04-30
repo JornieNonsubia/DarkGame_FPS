@@ -2,19 +2,19 @@ using Godot;
 
 public partial class InteractionRaycast : RayCast3D
 {
-    private GodotObject currentObject;
+    private GodotObject _currentObject;
 
     public override void _Process(double delta)
     {
         if (IsColliding())
         {
             GodotObject targetObject = GetCollider();
-            if (targetObject == currentObject)
+            if (targetObject == _currentObject)
                 return;
             else
-                currentObject = targetObject;
+                _currentObject = targetObject;
         }
         else
-            currentObject = null;
+            _currentObject = null;
     }
 }

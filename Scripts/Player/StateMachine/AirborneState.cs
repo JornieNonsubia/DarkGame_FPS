@@ -9,7 +9,7 @@ public partial class AirborneState : PlayerStateMachine
         {
             if (PlayerController.CheckFallSpeed())
                 PlayerController.CameraEffects.AddFallKick(2f);
-            PlayerController.stateChart.Call("send_event", "onGrounded");
+            PlayerController.StateChart.Call("send_event", "onGrounded");
         }
         PlayerController.CurrentFallVelocity = PlayerController.Velocity.Y;
     }

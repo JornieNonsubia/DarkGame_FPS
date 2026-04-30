@@ -18,11 +18,11 @@ public partial class PlayerStateMachine : Node
     {
         if (PlayerController != null)
         {
-            PlayerController.stateChart.Call("set_expression_property", "Velocity", PlayerController.Velocity);
-            PlayerController.stateChart.Call("set_expression_property", "Speed", PlayerController.Speed);
-            PlayerController.stateChart.Call("set_expression_property", "Player Hitting Head", PlayerController.CrouchCheck.IsColliding());
-            PlayerController.stateChart.Call("set_expression_property", "Looking At:", PlayerController.InterectionRaycast.GetCollider()); 
-            PlayerController.stateChart.Call("set_expression_property", "Dash Cooldown:", PlayerController.DashCooldownTimer); 
+            PlayerController.StateChart.Call("set_expression_property", "Velocity", PlayerController.Velocity);
+            PlayerController.StateChart.Call("set_expression_property", "Speed", PlayerController.Speed);
+            PlayerController.StateChart.Call("set_expression_property", "Player Hitting Head", PlayerController.CrouchCheck.IsColliding());
+            PlayerController.StateChart.Call("set_expression_property", "Looking At:", PlayerController.InteractionRaycast.GetCollider()); 
+            PlayerController.StateChart.Call("set_expression_property", "Dash Cooldown:", PlayerController.DashCooldownTimer); 
             
         }
     }

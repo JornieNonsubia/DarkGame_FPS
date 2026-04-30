@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://daf37tg7i25sf" path="res://Scripts/Player/Components/MouseCaptureComponent.cs" id="5_hck1p"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_knrd4"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="6_08u7w"]
+[ext_resource type="Script" uid="uid://d3s30m3d24els" path="res://Scripts/Player/Components/StepHandlerComponent.cs" id="7_imxsi"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="7_kgmex"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="9_3vpsw"]
 [ext_resource type="Script" uid="uid://dva05gwey0n07" path="res://Scripts/Player/StateMachine/PlayerStateMachine.cs" id="10_2xbkd"]
@@ -31,18 +32,19 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q7l0e"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1534748191 node_paths=PackedStringArray("Head", "CameraEffects", "stateChart", "CrouchCheck", "InterectionRaycast", "_standingCollision", "_crouchingCollision")]
+[node name="Player" type="CharacterBody3D" unique_id=1534748191 node_paths=PackedStringArray("Head", "CameraEffects", "StateChart", "CrouchCheck", "InteractionRaycast", "StandingCollision", "CrouchingCollision", "StepHandler")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_juxdh")
 Head = NodePath("Head")
 CameraEffects = NodePath("Head/Camera3D")
-stateChart = NodePath("StateChart")
+StateChart = NodePath("StateChart")
 CrouchCheck = NodePath("CrouchCheck")
-InterectionRaycast = NodePath("Head/Camera3D/InteractionRaycast")
-_standingCollision = NodePath("StandingCollision")
-_crouchingCollision = NodePath("CrouchingCollision")
+InteractionRaycast = NodePath("Head/Camera3D/InteractionRaycast")
+StandingCollision = NodePath("StandingCollision")
+CrouchingCollision = NodePath("CrouchingCollision")
+StepHandler = NodePath("Components/StepHandler")
 
 [node name="StateChartDebugger" parent="." unique_id=1313112623 instance=ExtResource("11_2xbkd")]
 custom_minimum_size = Vector2(300, 400)
@@ -72,10 +74,10 @@ collision_mask = 5
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="Head" type="Node3D" parent="." unique_id=2077691048 node_paths=PackedStringArray("_playerController", "_componentMouseCapture")]
+[node name="Head" type="Node3D" parent="." unique_id=2077691048 node_paths=PackedStringArray("_player", "_componentMouseCapture")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 script = ExtResource("2_4qbli")
-_playerController = NodePath("..")
+_player = NodePath("..")
 _componentMouseCapture = NodePath("../Components/MouseCapture")
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1556793389 node_paths=PackedStringArray("Player")]
@@ -93,6 +95,11 @@ script = ExtResource("4_405c5")
 
 [node name="MouseCapture" type="Node" parent="Components" unique_id=562860857]
 script = ExtResource("5_hck1p")
+_mouseSensitivity = 20.0
+
+[node name="StepHandler" type="Node" parent="Components" unique_id=939648615 node_paths=PackedStringArray("_player")]
+script = ExtResource("7_imxsi")
+_player = NodePath("../..")
 
 [node name="StateChart" type="Node" parent="." unique_id=1303616109]
 unique_name_in_owner = true
@@ -204,34 +211,43 @@ PlayerController = NodePath("..")
 
 [node name="MovementState" type="Node" parent="StateMachine" unique_id=1335710441]
 
-[node name="OnGroundedState" type="Node" parent="StateMachine/MovementState" unique_id=929902242]
+[node name="OnGroundedState" type="Node" parent="StateMachine/MovementState" unique_id=929902242 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("11_wphcr")
+PlayerController = NodePath("../../..")
 
-[node name="IdleState" type="Node" parent="StateMachine/MovementState/OnGroundedState" unique_id=68356223]
+[node name="IdleState" type="Node" parent="StateMachine/MovementState/OnGroundedState" unique_id=68356223 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("10_kgmex")
+PlayerController = NodePath("../../../..")
 
-[node name="MovingState" type="Node" parent="StateMachine/MovementState/OnGroundedState" unique_id=930651868]
+[node name="MovingState" type="Node" parent="StateMachine/MovementState/OnGroundedState" unique_id=930651868 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("12_3vpsw")
+PlayerController = NodePath("../../../..")
 
-[node name="WalkingState" type="Node" parent="StateMachine/MovementState/OnGroundedState/MovingState" unique_id=918855105]
+[node name="WalkingState" type="Node" parent="StateMachine/MovementState/OnGroundedState/MovingState" unique_id=918855105 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("13_b30ri")
+PlayerController = NodePath("../../../../..")
 
-[node name="SprintingState" type="Node" parent="StateMachine/MovementState/OnGroundedState/MovingState" unique_id=1531323085]
+[node name="SprintingState" type="Node" parent="StateMachine/MovementState/OnGroundedState/MovingState" unique_id=1531323085 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("14_ms580")
+PlayerController = NodePath("../../../../..")
 
-[node name="DashingState" type="Node" parent="StateMachine/MovementState/OnGroundedState/MovingState" unique_id=486228248]
+[node name="DashingState" type="Node" parent="StateMachine/MovementState/OnGroundedState/MovingState" unique_id=486228248 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("16_405c5")
+PlayerController = NodePath("../../../../..")
 
-[node name="AirborneState" type="Node" parent="StateMachine/MovementState" unique_id=1823103272]
+[node name="AirborneState" type="Node" parent="StateMachine/MovementState" unique_id=1823103272 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("16_and0b")
+PlayerController = NodePath("../../..")
 
 [node name="PostureState" type="Node" parent="StateMachine" unique_id=1408862488]
 
-[node name="StandingState" type="Node" parent="StateMachine/PostureState" unique_id=1567756255]
+[node name="StandingState" type="Node" parent="StateMachine/PostureState" unique_id=1567756255 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("15_q7l0e")
+PlayerController = NodePath("../../..")
 
-[node name="CrouchingState" type="Node" parent="StateMachine/PostureState" unique_id=1737119257]
+[node name="CrouchingState" type="Node" parent="StateMachine/PostureState" unique_id=1737119257 node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("16_0fs2y")
+PlayerController = NodePath("../../..")
 
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded" to="StateMachine/MovementState/OnGroundedState" method="OnGroundedStatePhysicsProcessing"]
 [connection signal="state_physics_processing" from="StateChart/Root/Movement/Grounded/Idle" to="StateMachine/MovementState/OnGroundedState/IdleState" method="OnIdleStatePhysicsProcessing"]

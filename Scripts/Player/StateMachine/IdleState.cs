@@ -7,7 +7,7 @@ public partial class IdleState : PlayerStateMachine
     {
         if (PlayerController != null && PlayerController.InputDir.Length() > 0)
         {
-            PlayerController.stateChart.Call("send_event", "onMoving");
+            PlayerController.StateChart.Call("send_event", "onMoving");
         }
     }
 }

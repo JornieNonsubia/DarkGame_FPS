@@ -8,11 +8,11 @@ public partial class MovingState : PlayerStateMachine
         if (PlayerController != null && PlayerController.InputDir.Length() == 0 &&
             PlayerController.Velocity.Length() < 0.5)
         {
-            PlayerController.stateChart.Call("send_event", "onIdle");
+            PlayerController.StateChart.Call("send_event", "onIdle");
         }
         if (Input.IsActionJustPressed("Dash") && PlayerController.CanDash)
         {
-            PlayerController.stateChart.Call("send_event", "onDashing");
+            PlayerController.StateChart.Call("send_event", "onDashing");
         }
     }
 }

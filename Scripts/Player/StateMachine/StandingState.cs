@@ -8,7 +8,7 @@ public partial class StandingState : PlayerStateMachine
         PlayerController.Head.UpdateCameraHeight(delta, 1);
         if (Input.IsActionPressed("Crouch") && PlayerController.IsOnFloor())
         {
-            PlayerController.stateChart.Call("send_event", "onCrouching");
+            PlayerController.StateChart.Call("send_event", "onCrouching");
         }
     }
 

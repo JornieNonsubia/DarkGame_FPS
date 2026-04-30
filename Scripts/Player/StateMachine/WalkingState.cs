@@ -7,7 +7,7 @@ public partial class WalkingState : PlayerStateMachine
     {
         if (Input.IsActionPressed("Sprint"))
         {
-            PlayerController.stateChart.Call("send_event", "onSprinting");
+            PlayerController.StateChart.Call("send_event", "onSprinting");
         }
     }
 
