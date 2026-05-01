@@ -53,8 +53,28 @@ public partial class WeaponController : Node
             {
                 PerformHitscan();
             }
+            else
+            {
+                SpawnProjectile();
+            }
             
         }
+    }
+
+    private void SpawnProjectile()
+    {
+        if(_currentWeapon.ProjectileModel==null || _camera == null)
+            return;
+        Projectile projectile = _currentWeapon.ProjectileModel.Instantiate() as Projectile;
+        GetTree().CurrentScene.AddChild(projectile);
+
+        projectile!.GlobalPosition = _camera.GlobalPosition;
+
+        Vector3 forward = -_camera.GlobalTransform.Basis.Z;
+        Vector3 vel = forward * _currentWeapon.ProjectileSpeed;
+        projectile.LookAt(projectile.GlobalPosition+forward,Vector3.Up);
+        
+        projectile.Setup(vel,_currentWeapon.Damage);
     }
 
     private void PerformHitscan()

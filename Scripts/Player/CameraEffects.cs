@@ -59,10 +59,6 @@ public partial class CameraEffects : Camera3D
     public override void _Process(double delta)
     {
         CalculateViewOffset(delta);
-
-        if (Input.IsActionJustPressed("LMB"))
-            AddWeaponKick(4f, 2f, 2f);
-        
     }
 
     void CalculateViewOffset(double delta)
