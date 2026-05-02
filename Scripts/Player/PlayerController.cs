@@ -11,6 +11,7 @@ public partial class PlayerController : CharacterBody3D
     [Export] public CollisionShape3D StandingCollision;
     [Export] public CollisionShape3D CrouchingCollision;
     [Export] public StepHandlerComponent StepHandler;
+    [Export] public WeaponController WeaponController;
     [Export] public Node StateChart;
 
     [ExportCategory("Movement")]
@@ -55,6 +56,7 @@ public partial class PlayerController : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         float fDelta = (float)delta;
+        
         if (_dashCooldownTimer > 0)
         {
             _dashCooldownTimer -= fDelta;

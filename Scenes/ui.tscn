@@ -13,4 +13,5 @@ grow_vertical = 2
 
 [node name="ReticleDraw" parent="Reticle" unique_id=1706914888 instance=ExtResource("1_fyqef")]
 layout_mode = 2
-script = null
+Radius = 20.0
+Thickness = 10.0

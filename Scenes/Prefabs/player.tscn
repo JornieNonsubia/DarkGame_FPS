@@ -10,9 +10,9 @@
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="6_08u7w"]
 [ext_resource type="Script" uid="uid://d3s30m3d24els" path="res://Scripts/Player/Components/StepHandlerComponent.cs" id="7_imxsi"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="7_kgmex"]
-[ext_resource type="Script" uid="uid://dill58jwuhnwe" path="res://Assets/Weapons/Scripts/WeaponController.cs" id="8_tdw85"]
-[ext_resource type="Resource" uid="uid://bjhsp23c8eo4s" path="res://Assets/Weapons/Resources/pistol.tres" id="9_0opq3"]
+[ext_resource type="Script" uid="uid://dill58jwuhnwe" path="res://Scripts/Player/Weapons/WeaponController.cs" id="8_tdw85"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="9_3vpsw"]
+[ext_resource type="Script" uid="uid://cdvdpx0gaal68" path="res://Scripts/Components/HealthComponent.cs" id="9_padmu"]
 [ext_resource type="Script" uid="uid://dva05gwey0n07" path="res://Scripts/Player/StateMachine/PlayerStateMachine.cs" id="10_2xbkd"]
 [ext_resource type="Script" uid="uid://b52blkyh5woa7" path="res://Scripts/Player/StateMachine/IdleState.cs" id="10_kgmex"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="11_2xbkd"]
@@ -24,10 +24,10 @@
 [ext_resource type="Script" uid="uid://dc6jg8ykgsffn" path="res://Scripts/Player/StateMachine/CrouchingState.cs" id="16_0fs2y"]
 [ext_resource type="Script" uid="uid://eoxtxue0jgs8" path="res://Scripts/Player/StateMachine/DashingState.cs" id="16_405c5"]
 [ext_resource type="Script" uid="uid://c0o06wdrhi5tp" path="res://Scripts/Player/StateMachine/AirborneState.cs" id="16_and0b"]
-[ext_resource type="Script" uid="uid://dqx24pebl1jab" path="res://Assets/Weapons/Scripts/WeaponStateMachine.cs" id="25_padmu"]
-[ext_resource type="Script" uid="uid://gqx5iote6p23" path="res://Assets/Weapons/Scripts/States/WeaponIdleState.cs" id="26_3u4h1"]
-[ext_resource type="Script" uid="uid://jc8odjbcak5e" path="res://Assets/Weapons/Scripts/States/WeaponFiringState.cs" id="27_wku6q"]
-[ext_resource type="Script" uid="uid://dblrp53tr0n5c" path="res://Assets/Weapons/Scripts/States/WeaponEmptyState.cs" id="28_4d5ba"]
+[ext_resource type="Script" uid="uid://dqx24pebl1jab" path="res://Scripts/Player/Weapons/WeaponStateMachine.cs" id="25_padmu"]
+[ext_resource type="Script" uid="uid://gqx5iote6p23" path="res://Scripts/Player/Weapons/States/WeaponIdleState.cs" id="26_3u4h1"]
+[ext_resource type="Script" uid="uid://jc8odjbcak5e" path="res://Scripts/Player/Weapons/States/WeaponFiringState.cs" id="27_wku6q"]
+[ext_resource type="Script" uid="uid://dblrp53tr0n5c" path="res://Scripts/Player/Weapons/States/WeaponEmptyState.cs" id="28_4d5ba"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_knrd4"]
 
@@ -38,7 +38,7 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q7l0e"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1534748191 node_paths=PackedStringArray("Head", "CameraEffects", "CrouchCheck", "InteractionRaycast", "StandingCollision", "CrouchingCollision", "StepHandler", "StateChart")]
+[node name="Player" type="CharacterBody3D" unique_id=1534748191 node_paths=PackedStringArray("Head", "CameraEffects", "CrouchCheck", "InteractionRaycast", "StandingCollision", "CrouchingCollision", "StepHandler", "WeaponController", "StateChart")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
 collision_mask = 5
@@ -50,6 +50,7 @@ InteractionRaycast = NodePath("Head/Camera3D/InteractionRaycast")
 StandingCollision = NodePath("StandingCollision")
 CrouchingCollision = NodePath("CrouchingCollision")
 StepHandler = NodePath("Components/StepHandler")
+WeaponController = NodePath("Components/WeaponContoller")
 StateChart = NodePath("MovementStateChart")
 _dashCooldown = 0.0
 
@@ -108,9 +109,11 @@ _player = NodePath("../..")
 [node name="WeaponContoller" type="Node" parent="Components" unique_id=786468098 node_paths=PackedStringArray("_camera", "_weaponModelParent", "_weaponStateChart")]
 script = ExtResource("8_tdw85")
 _camera = NodePath("../../Head/Camera3D")
-_currentWeapon = ExtResource("9_0opq3")
 _weaponModelParent = NodePath("../../Head/Camera3D")
 _weaponStateChart = NodePath("../../WeaponStateChart")
+
+[node name="HealthComponent" type="Node" parent="Components" unique_id=737280238]
+script = ExtResource("9_padmu")
 
 [node name="MovementStateChart" type="Node" parent="." unique_id=1303616109]
 script = ExtResource("6_08u7w")
