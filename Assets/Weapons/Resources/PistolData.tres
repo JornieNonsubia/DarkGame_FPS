@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://turcjwggjr2c"]
+
+[ext_resource type="Resource" uid="uid://bjhsp23c8eo4s" path="res://Assets/Weapons/Resources/Pistol.tres" id="1_2nre1"]
+[ext_resource type="Script" uid="uid://cl4ayh0ptbqtm" path="res://Scripts/Player/Weapons/Resources/WeaponData.cs" id="2_2nre1"]
+
+[resource]
+script = ExtResource("2_2nre1")
+_weapon = ExtResource("1_2nre1")
+_unlocked = true
+_ammo = 2

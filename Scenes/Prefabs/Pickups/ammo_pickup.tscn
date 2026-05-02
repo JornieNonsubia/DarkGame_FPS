@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://0fhyy4silsqv"]
+
+[ext_resource type="PackedScene" uid="uid://bfa00tp5bvbhb" path="res://Scenes/Prefabs/Pickups/BasePickup.tscn" id="1_8wyn0"]
+[ext_resource type="Script" uid="uid://cbxwr8hin5k2g" path="res://Scripts/Environment/Pickups/AmmoPickup.cs" id="2_r1yk3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1yk3"]
+albedo_color = Color(0.38136783, 0.5457838, 1, 1)
+emission_enabled = true
+emission = Color(0, 0, 0.6156863, 1)
+emission_energy_multiplier = 6.71
+
+[sub_resource type="TorusMesh" id="TorusMesh_cxmor"]
+material = SubResource("StandardMaterial3D_r1yk3")
+inner_radius = 0.1
+outer_radius = 0.15
+
+[node name="AmmoPickup" unique_id=337862873 instance=ExtResource("1_8wyn0")]
+script = ExtResource("2_r1yk3")
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=783426638]
+mesh = SubResource("TorusMesh_cxmor")

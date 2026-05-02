@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bfa00tp5bvbhb"]
+
+[ext_resource type="Script" uid="uid://b73xlpo66mxxk" path="res://Scripts/Environment/Pickups/BasePickup.cs" id="1_tmve4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uod0p"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_q7u12"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="BasePickup" type="Area3D" unique_id=337862873]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_tmve4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1687585669]
+shape = SubResource("SphereShape3D_uod0p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=783426638]
+mesh = SubResource("PrismMesh_q7u12")

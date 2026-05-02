@@ -1,0 +1,19 @@
+[gd_resource type="Resource" format=3 uid="uid://bjhsp23c8eo4s"]
+
+[ext_resource type="PackedScene" uid="uid://domjo24vptm1n" path="res://Assets/Weapons/Models/Projectile.tscn" id="1_rru0l"]
+[ext_resource type="PackedScene" uid="uid://br1w4i27dj2mt" path="res://Assets/Weapons/Models/PistolWeapon.tscn" id="2_ufyvh"]
+[ext_resource type="Script" uid="uid://bw3vntw40ld13" path="res://Scripts/Player/Weapons/Resources/Weapon.cs" id="3_fw2ph"]
+
+[resource]
+script = ExtResource("3_fw2ph")
+_weaponModel = ExtResource("2_ufyvh")
+_weaponPosition = Vector3(0.2, -0.08, -0.3)
+_damage = 22.0
+_fireRate = 6.0
+_isAutomatic = true
+_maxAmmo = 49
+_range = 100.0
+_accuracy = 90
+_isHitscan = false
+_projectileSpeed = 200.0
+_projectileModel = ExtResource("1_rru0l")
