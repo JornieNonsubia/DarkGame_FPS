@@ -47,6 +47,13 @@ folder_colors={
 "res://shaders/": "red"
 }
 
+[global_group]
+
+Enemies=""
+Players=""
+Turrets=""
+Geometry=""
+
 [input]
 
 StrafeLeft={

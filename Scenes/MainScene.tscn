@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://cwie48hx7oalk" path="res://Scripts/System/GameManager.cs" id="1_x4av3"]
 [ext_resource type="Script" uid="uid://bijnv02mdusje" path="res://Scripts/System/WeaponManager.cs" id="2_f140w"]
 [ext_resource type="PackedScene" uid="uid://hrbbed1b8nj6" path="res://Scenes/Levels/level1.tscn" id="2_rpqi1"]
-[ext_resource type="Resource" uid="uid://turcjwggjr2c" path="res://Assets/Weapons/Resources/PistolData.tres" id="3_0iob3"]
-[ext_resource type="Resource" uid="uid://c5fjfek0n2a70" path="res://Assets/Weapons/Resources/ShotgunData.tres" id="4_4b75m"]
+[ext_resource type="Resource" uid="uid://turcjwggjr2c" path="res://Assets/Resources/Weapons/PistolData.tres" id="3_0iob3"]
+[ext_resource type="Resource" uid="uid://c5fjfek0n2a70" path="res://Assets/Resources/Weapons/ShotgunData.tres" id="4_4b75m"]
 [ext_resource type="PackedScene" uid="uid://cjf6wiikanres" path="res://Scenes/Prefabs/player.tscn" id="7_8ju71"]
 
 [node name="MainScene" type="Node" unique_id=90938645]

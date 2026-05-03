@@ -16,7 +16,6 @@ public partial class ReticleDraw : Control
         { _radius = value;
           QueueRedraw(); }
     }
-
     [Export] public float Thickness
     {
         get => _thickness;
@@ -24,7 +23,6 @@ public partial class ReticleDraw : Control
         { _thickness = value;
           QueueRedraw(); }
     }
-
     [Export] public Color CrosshairColor
     {
         get => _color;
@@ -32,7 +30,6 @@ public partial class ReticleDraw : Control
         { _color = value;
           QueueRedraw(); }
     }
-
     [Export] public float GapAngle
     {
         get => _gapAngle;
@@ -40,7 +37,6 @@ public partial class ReticleDraw : Control
         { _gapAngle = value;
           QueueRedraw(); }
     }
-
     [Export] public int Segments
     {
         get => _segments;
@@ -57,9 +53,8 @@ public partial class ReticleDraw : Control
     private void DrawCircleCrosshair()
     {
         float gapRad = Mathf.DegToRad(_gapAngle);
-        Vector2 center = Size / 2; // Центрування в межах Control
+        Vector2 center = Size / 2; 
 
-        // Визначення квадрантів (початок та кінець дуги)
         float[][] arcSegments = new float[][]
         {
             [gapRad / 2, Mathf.Pi / 2 - gapRad / 2],
