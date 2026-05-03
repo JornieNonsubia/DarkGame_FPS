@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bdrhey8etboax" path="res://Scenes/Prefabs/Pickups/WeaponPickup.tscn" id="1_7u4ml"]
 [ext_resource type="PackedScene" uid="uid://0fhyy4silsqv" path="res://Scenes/Prefabs/Pickups/ammo_pickup.tscn" id="2_16p8j"]
-[ext_resource type="PackedScene" uid="uid://tkkxmorvt2a" path="res://Scenes/Prefabs/DestructBox.tscn" id="3_1ukdm"]
-[ext_resource type="PackedScene" uid="uid://crwke0bl7tflv" path="res://Scenes/Prefabs/Turrets/Lamp.tscn" id="4_njhy2"]
+[ext_resource type="PackedScene" uid="uid://tkkxmorvt2a" path="res://Scenes/Prefabs/Building/Misc/DestructBox.tscn" id="3_1ukdm"]
+[ext_resource type="PackedScene" uid="uid://crwke0bl7tflv" path="res://Scenes/Prefabs/Building/Light/Lamp.tscn" id="4_njhy2"]
 [ext_resource type="PackedScene" uid="uid://bmo8oyebh8c66" path="res://Scenes/Prefabs/Enemies/SimpleEnemy.tscn" id="5_c0r4e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fg03p"]
@@ -14,6 +14,7 @@ ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 sky_material = SubResource("ProceduralSkyMaterial_fg03p")
 
 [sub_resource type="Environment" id="Environment_i4kf4"]
+background_mode = 2
 sky = SubResource("Sky_t21ke")
 tonemap_mode = 3
 

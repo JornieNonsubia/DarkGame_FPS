@@ -192,6 +192,4 @@ public partial class WeaponController : Node
         WeaponData wpnData = Managers.Instance.WeaponManager.Weapons[Managers.Instance.WeaponManager.CurrentSlot];
         return wpnData.Ammo > 0;
     }
-    
-    
 }
