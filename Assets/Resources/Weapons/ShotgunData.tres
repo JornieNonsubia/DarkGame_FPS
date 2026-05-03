@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://c5fjfek0n2a70"]
+
+[ext_resource type="Resource" uid="uid://di4aucu0v47k6" path="res://Assets/Resources/Weapons/Shotgun.tres" id="1_lp7ls"]
+[ext_resource type="Script" uid="uid://cl4ayh0ptbqtm" path="res://Scripts/Player/Weapons/Resources/WeaponData.cs" id="2_lp7ls"]
+
+[resource]
+script = ExtResource("2_lp7ls")
+_weapon = ExtResource("1_lp7ls")
+_ammo = 2

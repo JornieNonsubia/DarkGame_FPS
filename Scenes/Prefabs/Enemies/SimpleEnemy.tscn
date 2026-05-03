@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://bmo8oyebh8c66"]
+
+[ext_resource type="Script" uid="uid://cr0qyd2imk3ox" path="res://Scripts/Enemy/SimpleEnemy.cs" id="1_0hl1e"]
+[ext_resource type="PackedScene" uid="uid://uqfmvcrtm762" path="res://Assets/OG/Models/Spider_enemy.glb" id="2_t4pgd"]
+[ext_resource type="Script" uid="uid://cdvdpx0gaal68" path="res://Scripts/Components/HealthComponent.cs" id="2_ub1m1"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_t4pgd"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_12g06"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_abtpw"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_dxn4n"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ub1m1"]
+height = 0.6
+radius = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0hl1e"]
+radius = 10.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_12g06"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ub1m1"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t4pgd"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_12g06"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ub1m1")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_t4pgd")
+blend_point_1/pos = 1.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_abtpw"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dxn4n"]
+graph_offset = Vector2(-343.31064, 27.153748)
+nodes/IdleChaseBlend/node = SubResource("AnimationNodeBlendSpace1D_12g06")
+nodes/IdleChaseBlend/position = Vector2(-240, 140)
+nodes/TimeSeek/node = SubResource("AnimationNodeTimeSeek_abtpw")
+nodes/TimeSeek/position = Vector2(40, 140)
+node_connections = [&"output", 0, &"TimeSeek", &"TimeSeek", 0, &"IdleChaseBlend"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jr0c2"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_l8w0o"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_6qfj5"]
+graph_offset = Vector2(-250.81244, 66.647415)
+nodes/output/position = Vector2(460, 140)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_jr0c2")
+nodes/Animation/position = Vector2(0, 140)
+nodes/TimeSeek/node = SubResource("AnimationNodeTimeSeek_l8w0o")
+nodes/TimeSeek/position = Vector2(200, 200)
+node_connections = [&"output", 0, &"TimeSeek", &"TimeSeek", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q1sfa"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fdd3s"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x8n2t"]
+
+[sub_resource type="Curve" id="Curve_abtpw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dxn4n"]
+xfade_time = 0.2
+xfade_curve = SubResource("Curve_abtpw")
+switch_mode = 2
+
+[sub_resource type="Curve" id="Curve_jr0c2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l8w0o"]
+xfade_time = 0.2
+xfade_curve = SubResource("Curve_jr0c2")
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dhq80"]
+states/Attack/node = SubResource("AnimationNodeAnimation_12g06")
+states/Attack/position = Vector2(413, 220)
+states/Chasing/node = SubResource("AnimationNodeBlendTree_dxn4n")
+states/Chasing/position = Vector2(487, 101)
+states/Idle/node = SubResource("AnimationNodeBlendTree_6qfj5")
+states/Idle/position = Vector2(334, 100)
+states/Start/position = Vector2(179, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_q1sfa"), "Idle", "Chasing", SubResource("AnimationNodeStateMachineTransition_fdd3s"), "Chasing", "Idle", SubResource("AnimationNodeStateMachineTransition_x8n2t"), "Attack", "Chasing", SubResource("AnimationNodeStateMachineTransition_dxn4n"), "Chasing", "Attack", SubResource("AnimationNodeStateMachineTransition_l8w0o")]
+graph_offset = Vector2(-39, -32)
+
+[node name="SimpleEnemy" type="CharacterBody3D" unique_id=1848821135 groups=["Enemies"]]
+script = ExtResource("1_0hl1e")
+_meleeRange = 3.0
+_enemyGroups = PackedStringArray("Enemies")
+
+[node name="Spider_enemy" parent="." unique_id=1851776920 instance=ExtResource("2_t4pgd")]
+
+[node name="Skeleton3D" parent="Spider_enemy/Skinned Mesh 0" parent_id_path=PackedInt32Array(1851776920, 498522018) index="0" unique_id=385698035]
+bones/1/position = Vector3(-0.089207545, 0.21870774, 0.11958393)
+bones/1/rotation = Quaternion(-7.549558e-08, -0.007729009, 0.99997014, 5.835241e-10)
+bones/2/rotation = Quaternion(0.021231497, -0.03818989, -0.0049222633, 0.99903286)
+bones/3/rotation = Quaternion(-0.026766656, -0.0019645381, 0.016577538, 0.99950236)
+bones/4/rotation = Quaternion(0.015648501, 0.010749234, 0.0006926113, 0.9998196)
+bones/5/rotation = Quaternion(-0.2608808, 0.013305442, -0.12980705, 0.9565116)
+bones/8/rotation = Quaternion(-0.31792632, 0.027116405, 0.14188555, 0.93704647)
+bones/10/rotation = Quaternion(0.008187996, 0.008181136, 0.7051711, 0.7089427)
+bones/11/rotation = Quaternion(0.39153394, 0.8570496, 0.21436843, -0.25731957)
+bones/12/rotation = Quaternion(0.24813637, 0.9040314, -0.22715804, -0.26373252)
+bones/13/rotation = Quaternion(-0.13156046, 0.011017228, -0.5263861, 0.8399335)
+bones/14/rotation = Quaternion(-0.105233476, 0.0027640034, -0.29326966, 0.9502164)
+bones/17/rotation = Quaternion(-0.043272875, 0.7131983, -0.34048972, 0.61118114)
+bones/18/rotation = Quaternion(-0.16567563, 0.002570197, -0.1972727, 0.9662446)
+bones/19/rotation = Quaternion(-0.07824733, 0.0013502053, -0.06195127, 0.9950063)
+bones/22/rotation = Quaternion(0.0063569695, 0.11683413, -0.48937926, 0.864186)
+bones/23/rotation = Quaternion(-0.28905848, 0.0037340303, -0.10956423, 0.9510136)
+bones/24/rotation = Quaternion(-0.1451504, -0.019135477, -0.022265863, 0.988974)
+bones/27/rotation = Quaternion(0.2322398, -0.16489129, -0.4645154, 0.8385112)
+bones/28/rotation = Quaternion(-0.41525307, -0.012826939, 0.14735702, 0.89760035)
+bones/29/rotation = Quaternion(-0.35982078, -0.0023382928, 0.10395572, 0.9272092)
+bones/31/rotation = Quaternion(0.029750004, -0.031628937, -0.71063113, 0.7022236)
+bones/33/rotation = Quaternion(-0.20761256, 0.91536915, -0.24814525, 0.23962547)
+bones/34/rotation = Quaternion(-0.118111245, 0.022289757, 0.56734073, 0.814664)
+bones/35/rotation = Quaternion(-0.09416779, 0.004669976, 0.32207787, 0.9420066)
+bones/38/rotation = Quaternion(-0.038047187, -0.70001316, 0.3577356, 0.6168949)
+bones/39/rotation = Quaternion(-0.24806492, 0.006339006, 0.30642787, 0.9189808)
+bones/40/rotation = Quaternion(-0.1456236, 0.0013635977, 0.14053409, 0.97930694)
+bones/43/rotation = Quaternion(0.011704286, -0.10937223, 0.49303234, 0.86302954)
+bones/44/rotation = Quaternion(-0.4268273, 0.001772579, 0.15697585, 0.8906032)
+bones/45/rotation = Quaternion(-0.25516963, 0.021339878, 0.053146552, 0.9651987)
+bones/48/rotation = Quaternion(0.19983165, 0.1481912, 0.45567346, 0.85467446)
+bones/49/rotation = Quaternion(-0.47749263, 0.008459158, -0.17090546, 0.8618125)
+bones/50/rotation = Quaternion(-0.4090304, 0.00045233412, -0.12382735, 0.90408015)
+bones/53/rotation = Quaternion(-0.14077032, -0.0034691677, -0.011766072, 0.9899663)
+bones/54/rotation = Quaternion(0.04271571, -0.002154074, -0.0034511178, 0.999079)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1800804100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("CylinderShape3D_ub1m1")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=513871640]
+path_desired_distance = 2.0
+target_desired_distance = 2.0
+radius = 1.5
+debug_enabled = true
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1868913874]
+script = ExtResource("2_ub1m1")
+_maxHealth = 50.0
+
+[node name="StateChart" type="Node" parent="." unique_id=71373538]
+script = ExtResource("3_t4pgd")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=864533669]
+script = ExtResource("4_12g06")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root" unique_id=888596074]
+script = ExtResource("5_abtpw")
+
+[node name="Chasing" type="Node" parent="StateChart/Root" unique_id=2101084441]
+script = ExtResource("5_abtpw")
+
+[node name="Attack" type="Node" parent="StateChart/Root" unique_id=222336081]
+script = ExtResource("5_abtpw")
+
+[node name="ToIdle" type="Node" parent="StateChart/Root" unique_id=1705235100]
+script = ExtResource("6_dxn4n")
+to = NodePath("../Idle")
+event = &"toIdle"
+delay_in_seconds = "0.0"
+
+[node name="ToChasing" type="Node" parent="StateChart/Root" unique_id=1376071684]
+script = ExtResource("6_dxn4n")
+to = NodePath("../Chasing")
+event = &"toChasing"
+delay_in_seconds = "0.0"
+
+[node name="ToAttack" type="Node" parent="StateChart/Root" unique_id=1987599149]
+script = ExtResource("6_dxn4n")
+to = NodePath("../Attack")
+event = &"toAttack"
+delay_in_seconds = "0.0"
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=969584903]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1905815273]
+shape = SubResource("SphereShape3D_0hl1e")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=297640891]
+root_node = NodePath("../Spider_enemy")
+tree_root = SubResource("AnimationNodeStateMachine_dhq80")
+anim_player = NodePath("../Spider_enemy/AnimationPlayer")
+parameters/Chasing/IdleChaseBlend/blend_position = 0.092678405
+parameters/Chasing/TimeSeek/seek_request = -1.0
+parameters/Idle/TimeSeek/seek_request = -1.0
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnVelocityComputed"]
+[connection signal="state_entered" from="StateChart/Root/Chasing" to="." method="OnChasingStateEntered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Chasing" to="." method="OnChasingStatePhysicsProcessing"]
+[connection signal="state_entered" from="StateChart/Root/Attack" to="." method="OnAttackStateEntered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="OnDetectionAreaBodyEntered"]
+
+[editable path="Spider_enemy"]

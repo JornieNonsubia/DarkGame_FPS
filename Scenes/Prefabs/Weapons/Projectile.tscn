@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://domjo24vptm1n"]
+
+[ext_resource type="Script" uid="uid://ddvkqkr1gec4u" path="res://Scripts/Player/Weapons/Projectile.cs" id="1_0nimx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btqtf"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 9.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_v37nx"]
+material = SubResource("StandardMaterial3D_btqtf")
+size = Vector3(0.01, 0.01, 0.1)
+
+[node name="Projectile" type="Area3D" unique_id=294621434]
+script = ExtResource("1_0nimx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2056099815]
+mesh = SubResource("BoxMesh_v37nx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=256950700]
