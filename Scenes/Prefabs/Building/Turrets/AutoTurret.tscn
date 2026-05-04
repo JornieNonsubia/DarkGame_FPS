@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://bf7m32ng8y5nb"]
+
+[ext_resource type="Script" uid="uid://cdvdpx0gaal68" path="res://Scripts/Components/HealthComponent.cs" id="1_auanj"]
+[ext_resource type="Script" uid="uid://c4m5sfqdnepyv" path="res://Scripts/Building/Turrets/AutoTurret.cs" id="1_ewqj6"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_wrm7r"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_gkvbn"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_a2ws7"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_rb3qd"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_auanj"]
+points = PackedVector3Array(0, 0, 0, 40, 10, -50, 40, 0, -50, -40, 10, -50, -40, 0, -50, 0, 0, -65, 0, 15, -65)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_s0gdk"]
+height = 1.1011047
+
+[node name="AutoTurretReal" type="RigidBody3D" unique_id=18509036 node_paths=PackedStringArray("_head", "_neck")]
+script = ExtResource("1_ewqj6")
+_head = NodePath("Neck/CSGCombiner3D/Head")
+_neck = NodePath("Neck")
+
+[node name="Neck" type="Node3D" parent="." unique_id=1715631962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="Neck" unique_id=242389011]
+target_position = Vector3(0, 0, -15)
+collision_mask = 8
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Neck" unique_id=473490017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Neck/CSGCombiner3D" unique_id=776882694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+radius = 0.1
+height = 0.8
+
+[node name="Head" type="CSGCylinder3D" parent="Neck/CSGCombiner3D" unique_id=1744426068]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5, 0)
+radius = 0.1
+height = 0.8
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Neck/CSGCombiner3D/Head" unique_id=1028899059]
+transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, 0, 0.2, -0.3)
+radius = 0.1
+height = 0.8
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Neck/CSGCombiner3D/Head" unique_id=1058879342]
+transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, 0, -0.2, -0.3)
+radius = 0.1
+height = 0.8
+
+[node name="Area3D" type="Area3D" parent="." unique_id=202477688]
+collision_layer = 4
+collision_mask = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1896347005]
+shape = SubResource("ConvexPolygonShape3D_auanj")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=62363621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.099999994, 0)
+size = Vector3(1, 0.2, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=859173335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CylinderShape3D_s0gdk")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1434822934]
+script = ExtResource("1_auanj")
+_maxHealth = 300.0
+
+[node name="StateChart" type="Node" parent="." unique_id=139149119]
+script = ExtResource("3_wrm7r")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=243792901]
+script = ExtResource("4_gkvbn")
+initial_state = NodePath("Firing")
+
+[node name="Firing" type="Node" parent="StateChart/Root" unique_id=467136636]
+script = ExtResource("5_a2ws7")
+
+[node name="ToFiring" type="Node" parent="StateChart/Root" unique_id=1004293227]
+script = ExtResource("6_rb3qd")
+to = NodePath("../Firing")
+event = &"toFiring"
+delay_in_seconds = "0.0"
+
+[node name="Seeking" type="Node" parent="StateChart/Root" unique_id=186255641]
+script = ExtResource("5_a2ws7")
+
+[node name="ToSeeking" type="Node" parent="StateChart/Root" unique_id=1003866989]
+script = ExtResource("6_rb3qd")
+to = NodePath("../Seeking")
+event = &"toSeeking"
+delay_in_seconds = "0.0"
+
+[node name="Disabled" type="Node" parent="StateChart/Root" unique_id=715199983]
+script = ExtResource("5_a2ws7")
+
+[node name="ToDisabled" type="Node" parent="StateChart/Root" unique_id=647566719]
+script = ExtResource("6_rb3qd")
+to = NodePath("../Disabled")
+event = &"toDisabled"
+delay_in_seconds = "0.0"
+
+[connection signal="body_entered" from="Area3D" to="." method="OnArea3DBodyEntered"]
+[connection signal="body_exited" from="Area3D" to="." method="OnArea3DBodyExited"]
