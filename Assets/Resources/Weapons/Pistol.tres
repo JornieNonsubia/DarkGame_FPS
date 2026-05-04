@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("3_fw2ph")
 _weaponModel = ExtResource("2_ufyvh")
-_weaponPosition = Vector3(0.2, -0.08, -0.3)
+_weaponPosition = Vector3(0.339, -0.235, -0.702)
 _damage = 22.0
 _fireRate = 6.0
 _isAutomatic = true

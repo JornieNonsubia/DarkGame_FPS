@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bmo8oyebh8c66"]
 
 [ext_resource type="Script" uid="uid://cr0qyd2imk3ox" path="res://Scripts/Enemy/SimpleEnemy.cs" id="1_0hl1e"]
-[ext_resource type="PackedScene" uid="uid://uqfmvcrtm762" path="res://Assets/OG/Models/Spider_enemy.glb" id="2_t4pgd"]
+[ext_resource type="PackedScene" uid="uid://uqfmvcrtm762" path="res://Assets/OG/Models/Monsters/Spider_enemy/Spider_enemy.glb" id="2_t4pgd"]
 [ext_resource type="Script" uid="uid://cdvdpx0gaal68" path="res://Scripts/Components/HealthComponent.cs" id="2_ub1m1"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="3_t4pgd"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_12g06"]

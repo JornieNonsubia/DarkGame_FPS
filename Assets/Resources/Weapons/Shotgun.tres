@@ -7,6 +7,7 @@
 script = ExtResource("2_1rbe8")
 _weaponName = "Shotgun"
 _weaponModel = ExtResource("1_0l7lu")
+_weaponPosition = Vector3(0.245, -0.185, -0.652)
 _damage = 7.0
 _fireRate = 1.5
 _maxAmmo = 6
