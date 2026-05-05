@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c1e0dsygv3am4" path="res://Scenes/ui.tscn" id="1_3mqji"]
 [ext_resource type="Script" uid="uid://cwie48hx7oalk" path="res://Scripts/System/GameManager.cs" id="1_x4av3"]
 [ext_resource type="Script" uid="uid://bijnv02mdusje" path="res://Scripts/System/WeaponManager.cs" id="2_f140w"]
-[ext_resource type="PackedScene" uid="uid://hrbbed1b8nj6" path="res://Scenes/Levels/level1.tscn" id="2_rpqi1"]
+[ext_resource type="PackedScene" uid="uid://hrbbed1b8nj6" path="res://Scenes/Levels/TestLevel.tscn" id="2_rpqi1"]
 [ext_resource type="Resource" uid="uid://turcjwggjr2c" path="res://Assets/Resources/Weapons/PistolData.tres" id="3_0iob3"]
 [ext_resource type="Resource" uid="uid://c5fjfek0n2a70" path="res://Assets/Resources/Weapons/ShotgunData.tres" id="4_4b75m"]
 [ext_resource type="PackedScene" uid="uid://cjf6wiikanres" path="res://Scenes/Prefabs/player.tscn" id="7_8ju71"]
@@ -16,20 +16,21 @@
 [node name="GameManager" type="Node" parent="Managers" unique_id=1208519035]
 script = ExtResource("1_x4av3")
 
-[node name="WeaponManager" type="Node" parent="Managers" unique_id=1814672251 node_paths=PackedStringArray("_player")]
+[node name="WeaponManager" type="Node" parent="Managers" unique_id=1814672251 node_paths=PackedStringArray("_player", "UI")]
 script = ExtResource("2_f140w")
 _weapons = Dictionary[int, Object]({
 1: ExtResource("3_0iob3"),
 2: ExtResource("4_4b75m")
 })
 _player = NodePath("../Player")
+UI = NodePath("../../UI")
 
 [node name="Player" parent="Managers" unique_id=1534748191 instance=ExtResource("7_8ju71")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.1397734, 1.0499992, -6.403782)
 
 [node name="CurrentLevel" type="Node3D" parent="." unique_id=543412787]
 
-[node name="Level1" parent="CurrentLevel" unique_id=218894372 instance=ExtResource("2_rpqi1")]
+[node name="TestLevel" parent="CurrentLevel" unique_id=218894372 instance=ExtResource("2_rpqi1")]
 
 [node name="UI" parent="." unique_id=1295867958 instance=ExtResource("1_3mqji")]
 

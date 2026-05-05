@@ -13,13 +13,13 @@ public partial class AmmoPickup : BasePickup
 
         WeaponData weaponData = Managers.Instance.WeaponManager.Weapons[_weaponSlot];
 
-        return weaponData.Unlocked && weaponData.Ammo < weaponData.Weapon.MaxAmmo;
+        return weaponData.Unlocked && weaponData.ReserveAmmo + weaponData.CurrentAmmo < weaponData.Weapon.MaxAmmo;
     }
 
     public override void ApplyPickup(PlayerController body)
     {
         WeaponData weaponData = Managers.Instance.WeaponManager.Weapons[_weaponSlot];
-        
+
         weaponData.RefillAmmo(_ammoAmount);
     }
 }

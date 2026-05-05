@@ -16,5 +16,11 @@ public partial class WeaponIdleState : WeaponState
         {
             WeaponController.WeaponStateChart.Call("send_event", "onEmpty");
         }
+
+        if (Input.IsActionJustPressed("WeaponReload") && WeaponController.CurrentWeapon.MagazineSize
+            > Managers.Instance.WeaponManager.Weapons[Managers.Instance.WeaponManager.CurrentSlot].CurrentAmmo)
+        {
+            WeaponController.WeaponStateChart.Call("send_event", "onReloading");
+        }
     }
 }

@@ -10,11 +10,9 @@ public partial class WeaponEmptyState : WeaponState
 
     public void OnEmptyStateProcessing(double delta)
     {
-        //TODO: Reload
         if (Input.IsActionJustPressed("WeaponReload"))
         {
-            WeaponController.WeaponStateChart.Call("send_event", "onIdle");
-            
+            WeaponController.WeaponStateChart.Call("send_event", "onReloading");
         }
     }
 }

@@ -8,6 +8,7 @@ public partial class WeaponController : Node
     [Export] private Node _weaponStateChart;
     
     private Weapon _currentWeapon;
+    
     private Node3D _currentWeaponModel;
     private bool _canFire = true;
     private float _fireRateTimer = 0f;
@@ -53,7 +54,7 @@ public partial class WeaponController : Node
     public bool CanFire()
     {
         WeaponData wpnData = Managers.Instance.WeaponManager.Weapons[Managers.Instance.WeaponManager.CurrentSlot];
-        return wpnData.Ammo > 0 && _canFire;
+        return wpnData.CurrentAmmo > 0 && _canFire;
     }
 
     public void FireWeapon()
@@ -190,6 +191,6 @@ public partial class WeaponController : Node
     public bool HasAmmo()
     {
         WeaponData wpnData = Managers.Instance.WeaponManager.Weapons[Managers.Instance.WeaponManager.CurrentSlot];
-        return wpnData.Ammo > 0;
+        return wpnData.CurrentAmmo>0;
     }
 }

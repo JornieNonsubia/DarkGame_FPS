@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://gqx5iote6p23" path="res://Scripts/Player/Weapons/States/WeaponIdleState.cs" id="26_3u4h1"]
 [ext_resource type="Script" uid="uid://jc8odjbcak5e" path="res://Scripts/Player/Weapons/States/WeaponFiringState.cs" id="27_wku6q"]
 [ext_resource type="Script" uid="uid://dblrp53tr0n5c" path="res://Scripts/Player/Weapons/States/WeaponEmptyState.cs" id="28_4d5ba"]
+[ext_resource type="Script" uid="uid://bgu4t2qm48pjc" path="res://Scripts/Player/Weapons/States/WeaponReloadingState.cs" id="29_3u4h1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_knrd4"]
 
@@ -60,8 +61,7 @@ anchors_preset = 9
 anchor_right = 0.0
 offset_right = 456.0
 grow_horizontal = 1
-enabled = false
-initial_node_to_watch = NodePath("../MovementStateChart")
+initial_node_to_watch = NodePath("../WeaponStateChart")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=866625906]
 mesh = SubResource("CapsuleMesh_knrd4")
@@ -108,6 +108,7 @@ script = ExtResource("7_imxsi")
 _player = NodePath("../..")
 
 [node name="WeaponContoller" type="Node" parent="Components" unique_id=786468098 node_paths=PackedStringArray("_camera", "_weaponModelParent", "_weaponStateChart")]
+unique_name_in_owner = true
 script = ExtResource("8_tdw85")
 _camera = NodePath("../../Head/Camera3D")
 _weaponModelParent = NodePath("../../Head/Camera3D")
@@ -298,6 +299,15 @@ to = NodePath("../Empty")
 event = &"onEmpty"
 delay_in_seconds = "0.0"
 
+[node name="Reloading" type="Node" parent="WeaponStateChart/Root" unique_id=1737014654]
+script = ExtResource("9_3vpsw")
+
+[node name="OnReloading" type="Node" parent="WeaponStateChart/Root" unique_id=653040326]
+script = ExtResource("5_knrd4")
+to = NodePath("../Reloading")
+event = &"onReloading"
+delay_in_seconds = "0.0"
+
 [node name="WeaponStateMachine" type="Node" parent="." unique_id=900519085 node_paths=PackedStringArray("WeaponController")]
 unique_name_in_owner = true
 script = ExtResource("25_padmu")
@@ -313,6 +323,10 @@ WeaponController = NodePath("../../Components/WeaponContoller")
 
 [node name="EmptyState" type="Node" parent="WeaponStateMachine" unique_id=1092522100 node_paths=PackedStringArray("WeaponController")]
 script = ExtResource("28_4d5ba")
+WeaponController = NodePath("../../Components/WeaponContoller")
+
+[node name="ReloadingState" type="Node" parent="WeaponStateMachine" unique_id=192086651 node_paths=PackedStringArray("WeaponController")]
+script = ExtResource("29_3u4h1")
 WeaponController = NodePath("../../Components/WeaponContoller")
 
 [connection signal="state_physics_processing" from="MovementStateChart/Root/Movement/Grounded" to="StateMachine/MovementState/OnGroundedState" method="OnGroundedStatePhysicsProcessing"]
@@ -335,3 +349,6 @@ WeaponController = NodePath("../../Components/WeaponContoller")
 [connection signal="state_processing" from="WeaponStateChart/Root/Firing" to="WeaponStateMachine/FiringState" method="OnFiringStateProcessing"]
 [connection signal="state_entered" from="WeaponStateChart/Root/Empty" to="WeaponStateMachine/EmptyState" method="OnEmptyStateEntered"]
 [connection signal="state_processing" from="WeaponStateChart/Root/Empty" to="WeaponStateMachine/EmptyState" method="OnEmptyStateProcessing"]
+[connection signal="state_entered" from="WeaponStateChart/Root/Reloading" to="WeaponStateMachine/ReloadingState" method="OnReloadingStateEntered"]
+[connection signal="state_exited" from="WeaponStateChart/Root/Reloading" to="WeaponStateMachine/ReloadingState" method="OnReloadingStateExited"]
+[connection signal="state_processing" from="WeaponStateChart/Root/Reloading" to="WeaponStateMachine/ReloadingState" method="OnReloadingStateProcessing"]

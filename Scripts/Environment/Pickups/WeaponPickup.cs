@@ -11,14 +11,15 @@ public partial class WeaponPickup : BasePickup
 
         if (weaponData.Unlocked)
         {
-            weaponData.Ammo = _weaponResource.MaxAmmo;
-            GD.Print("Ammo refilled: "+_weaponResource.WeaponName);
+            weaponData.ReserveAmmo = _weaponResource.MaxAmmo - _weaponResource.MagazineSize;
+            weaponData.CurrentAmmo = _weaponResource.MagazineSize;
+            GD.Print("Ammo refilled: " + _weaponResource.WeaponName);
         }
         else
         {
             Managers.Instance.WeaponManager.UnlockWeapon(_weaponSlot, _weaponResource);
             Managers.Instance.WeaponManager.SwitchToSlot(_weaponSlot);
-            GD.Print("Unlocked: "+_weaponResource.WeaponName);
+            GD.Print("Unlocked: " + _weaponResource.WeaponName);
         }
     }
 
@@ -26,6 +27,6 @@ public partial class WeaponPickup : BasePickup
     {
         WeaponData weaponData = Managers.Instance.WeaponManager.Weapons[_weaponSlot];
 
-        return !weaponData.Unlocked || weaponData.Ammo < _weaponResource.MaxAmmo;
+        return !weaponData.Unlocked || weaponData.ReserveAmmo + weaponData.CurrentAmmo < _weaponResource.MaxAmmo;
     }
 }

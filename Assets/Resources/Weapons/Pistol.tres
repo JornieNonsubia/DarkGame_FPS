@@ -6,14 +6,11 @@
 
 [resource]
 script = ExtResource("3_fw2ph")
+_fireRate = 6.0
+_maxAmmo = 49
+_magazineSize = 7
+_accuracy = 90
 _weaponModel = ExtResource("2_ufyvh")
 _weaponPosition = Vector3(0.339, -0.235, -0.702)
-_damage = 22.0
-_fireRate = 6.0
-_isAutomatic = true
-_maxAmmo = 49
-_range = 100.0
-_accuracy = 90
-_isHitscan = false
 _projectileSpeed = 200.0
 _projectileModel = ExtResource("1_rru0l")
