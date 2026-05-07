@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class SimpleEnemy : BaseEnemy
+public partial class SimpleEnemy : EnemyTemplate
 {
     [Export] private float _movementSpeed = 3f;
     [Export] private float _acceleration = 3f;
@@ -112,6 +112,8 @@ public partial class SimpleEnemy : BaseEnemy
 
         if (_navAgent.IsNavigationFinished())
         {
+            GD.Print(2);
+
             _navAgent.Velocity = Vector3.Zero;
 
             if (_animPlayer != null && _animPlayer.CurrentAnimation != "Idle")
@@ -127,6 +129,8 @@ public partial class SimpleEnemy : BaseEnemy
 
         if (!_navAgent.AvoidanceEnabled)
         {
+            GD.Print(3);
+
             Vector3 vel = Velocity;
             float targetVelX = dir.X * _movementSpeed;
             float targetVelZ = dir.Z * _movementSpeed;
@@ -138,6 +142,7 @@ public partial class SimpleEnemy : BaseEnemy
 
         if (dir.Length() > 0.01)
         {
+
             float targetRotation = Mathf.Atan2(dir.X, dir.Z);
 
             Vector3 rot = Rotation;
@@ -169,10 +174,11 @@ public partial class SimpleEnemy : BaseEnemy
     {
         Vector3 vel = Velocity;
 
-        Vector3 targetVel = new Vector3(safeVelocity.X, Velocity.Y, safeVelocity.Z);
+        Vector3 targetVel = new Vector3(safeVelocity.X, vel.Y, safeVelocity.Z);
         float accel = (safeVelocity.Length() > 0.01) ? _acceleration : _deceleration;
         vel.X = (float)Mathf.MoveToward(vel.X, targetVel.X, accel * GetPhysicsProcessDeltaTime());
         vel.Z = (float)Mathf.MoveToward(vel.Z, targetVel.Z, accel * GetPhysicsProcessDeltaTime());
+        Velocity = vel;
     }
 
     // ===== Наслідуєме =====
@@ -184,6 +190,7 @@ public partial class SimpleEnemy : BaseEnemy
 
     private void OnDied()
     {
+        GD.Print("Ondied");
         QueueFree();
     }
 }

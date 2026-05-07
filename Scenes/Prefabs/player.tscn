@@ -61,6 +61,7 @@ anchors_preset = 9
 anchor_right = 0.0
 offset_right = 456.0
 grow_horizontal = 1
+enabled = false
 initial_node_to_watch = NodePath("../WeaponStateChart")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=866625906]

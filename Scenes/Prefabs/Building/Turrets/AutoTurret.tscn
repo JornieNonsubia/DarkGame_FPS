@@ -6,66 +6,34 @@
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="4_gkvbn"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="5_a2ws7"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="6_rb3qd"]
+[ext_resource type="Script" uid="uid://b1v5hhgxugtal" path="res://Scripts/Building/Turrets/TurretFireComponent.cs" id="7_gkvbn"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_auanj"]
-points = PackedVector3Array(0, 0, 0, 40, 10, -50, 40, 0, -50, -40, 10, -50, -40, 0, -50, 0, 0, -65, 0, 15, -65)
+[sub_resource type="BoxShape3D" id="BoxShape3D_wrm7r"]
+margin = 0.0
+size = Vector3(1, 1.0991211, 1)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_s0gdk"]
-height = 1.1011047
-
-[node name="AutoTurretReal" type="RigidBody3D" unique_id=18509036 node_paths=PackedStringArray("_head", "_neck")]
+[node name="AutoTurretReal" type="StaticBody3D" unique_id=679553520 node_paths=PackedStringArray("_head", "_neck", "_ray", "_turretFireComponent")]
+disable_mode = 1
+collision_layer = 4
 script = ExtResource("1_ewqj6")
-_head = NodePath("Neck/CSGCombiner3D/Head")
-_neck = NodePath("Neck")
-
-[node name="Neck" type="Node3D" parent="." unique_id=1715631962]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="RayCast3D" type="RayCast3D" parent="Neck" unique_id=242389011]
-target_position = Vector3(0, 0, -15)
-collision_mask = 8
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Neck" unique_id=473490017]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Neck/CSGCombiner3D" unique_id=776882694]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-radius = 0.1
-height = 0.8
-
-[node name="Head" type="CSGCylinder3D" parent="Neck/CSGCombiner3D" unique_id=1744426068]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5, 0)
-radius = 0.1
-height = 0.8
-
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Neck/CSGCombiner3D/Head" unique_id=1028899059]
-transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, 0, 0.2, -0.3)
-radius = 0.1
-height = 0.8
-
-[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="Neck/CSGCombiner3D/Head" unique_id=1058879342]
-transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, 0, -0.2, -0.3)
-radius = 0.1
-height = 0.8
+_head = NodePath("CSGMesh3D/Neck/Head")
+_neck = NodePath("CSGMesh3D/Neck")
+_ray = NodePath("CSGMesh3D/Neck/Head/RayCast3D")
+_turretFireComponent = NodePath("TurretFireComponent")
+_detectionAreaAngleHeight = 20.0
+_detectionAreaRange = 10.0
 
 [node name="Area3D" type="Area3D" parent="." unique_id=202477688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 4
 collision_mask = 10
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1896347005]
-shape = SubResource("ConvexPolygonShape3D_auanj")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=62363621]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.099999994, 0)
-size = Vector3(1, 0.2, 1)
+[node name="DetectionShape" type="CollisionShape3D" parent="Area3D" unique_id=1896347005]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=859173335]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-shape = SubResource("CylinderShape3D_s0gdk")
-
-[node name="HealthComponent" type="Node" parent="." unique_id=1434822934]
-script = ExtResource("1_auanj")
-_maxHealth = 300.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54956055, 0)
+shape = SubResource("BoxShape3D_wrm7r")
+disabled = true
 
 [node name="StateChart" type="Node" parent="." unique_id=139149119]
 script = ExtResource("3_wrm7r")
@@ -101,6 +69,50 @@ script = ExtResource("6_rb3qd")
 to = NodePath("../Disabled")
 event = &"toDisabled"
 delay_in_seconds = "0.0"
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1474388314]
+
+[node name="Neck" type="Node3D" parent="CSGMesh3D" unique_id=1715631962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="CSGMesh3D/Neck" unique_id=473490017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGMesh3D/Neck/CSGCombiner3D" unique_id=776882694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+radius = 0.1
+height = 0.8
+
+[node name="Head" type="CSGCylinder3D" parent="CSGMesh3D/Neck" unique_id=1744426068]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+radius = 0.1
+height = 0.8
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGMesh3D/Neck/Head" unique_id=1028899059]
+transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, 0, 0.2, -0.3)
+radius = 0.1
+height = 0.8
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="CSGMesh3D/Neck/Head" unique_id=1058879342]
+transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, 0, -0.2, -0.3)
+radius = 0.1
+height = 0.8
+
+[node name="RayCast3D" type="RayCast3D" parent="CSGMesh3D/Neck/Head" unique_id=242389011]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -15)
+collision_mask = 8
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGMesh3D" unique_id=62363621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.099999994, 0)
+size = Vector3(1, 0.2, 1)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1434822934]
+script = ExtResource("1_auanj")
+_maxHealth = 300.0
+
+[node name="TurretFireComponent" type="Node" parent="." unique_id=565067541]
+script = ExtResource("7_gkvbn")
 
 [connection signal="body_entered" from="Area3D" to="." method="OnArea3DBodyEntered"]
 [connection signal="body_exited" from="Area3D" to="." method="OnArea3DBodyExited"]

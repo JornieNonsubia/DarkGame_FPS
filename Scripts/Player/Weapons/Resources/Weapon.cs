@@ -4,7 +4,7 @@ public partial class Weapon : Resource
 {
     [Export] private string _weaponName = "Pistol";
     [Export] private float _damage = 25f;
-    [Export] private float _fireRate = 2; //shot per sec
+    [Export] private float _fireRate = 2; //shots per sec
     [Export] private int _maxAmmo = 40;
     [Export] private int _magazineSize = 20;
     [Export] private float _range = 100f;

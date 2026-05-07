@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class BaseEnemy : CharacterBody3D
+public partial class EnemyTemplate : CharacterBody3D
 {
 
     [Export] private string[] _enemyGroups;
