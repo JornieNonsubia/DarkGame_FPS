@@ -1,16 +1,17 @@
 [gd_resource type="Resource" format=3 uid="uid://di4aucu0v47k6"]
 
-[ext_resource type="PackedScene" uid="uid://bl6mxk8v6m0nt" path="res://Scenes/Prefabs/Weapons/ShotgunWeapon.tscn" id="1_0l7lu"]
-[ext_resource type="Script" uid="uid://bw3vntw40ld13" path="res://Scripts/Player/Weapons/Resources/Weapon.cs" id="2_1rbe8"]
+[ext_resource type="PackedScene" uid="uid://bl6mxk8v6m0nt" path="res://game/weapons/shotgun/ShotgunWeapon.tscn" id="1_0l7lu"]
+[ext_resource type="Script" uid="uid://bw3vntw40ld13" path="res://game/player/scripts/Weapons/Resources/Weapon.cs" id="2_1rbe8"]
 
 [resource]
 script = ExtResource("2_1rbe8")
 _weaponName = "Shotgun"
-_weaponModel = ExtResource("1_0l7lu")
-_damage = 7.0
+_damage = 8.0
 _fireRate = 1.5
-_maxAmmo = 6
-_range = 100.0
+_maxAmmo = 18
+_magazineSize = 6
 _accuracy = 95
 _pelletCount = 9
 _pelletSpread = 30.0
+_weaponModel = ExtResource("1_0l7lu")
+_weaponPosition = Vector3(0.245, -0.185, -0.652)

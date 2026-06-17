@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dxb1yxuaq8xy8"]
 
-[ext_resource type="Script" uid="uid://3r3sdpsmh2ys" path="res://Scripts/UI/ReticleDraw.cs" id="1_skfq2"]
+[ext_resource type="Script" uid="uid://3r3sdpsmh2ys" path="res://game/ui/ReticleDraw.cs" id="1_skfq2"]
 
 [node name="ReticleDraw" type="Control" unique_id=1706914888]
 layout_mode = 3
