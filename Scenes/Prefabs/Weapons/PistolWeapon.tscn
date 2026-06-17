@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://br1w4i27dj2mt"]
-
-[ext_resource type="PackedScene" uid="uid://bkp834bkl5iui" path="res://Assets/OG/Models/Weapons/Colt_TastyTony/low-poly_m1911.glb" id="1_k23dl"]
-
-[node name="Colt" unique_id=424051544 instance=ExtResource("1_k23dl")]
-transform = Transform3D(-2.1855694e-10, 0, 0.005, 0, 0.005, 0, -0.005, 0, -2.1855694e-10, 0, 0, 0)

@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bl6mxk8v6m0nt"]
-
-[ext_resource type="PackedScene" uid="uid://d3ts1fe3aeklp" path="res://Assets/OG/Models/Weapons/Mossberg_590_TastyTony/low-poly_mossberg_590.glb" id="1_sfycw"]
-
-[node name="Mossberg_590" unique_id=1371288898 instance=ExtResource("1_sfycw")]
-transform = Transform3D(-1.1364961e-09, 0, 0.026, 0, 0.026, 0, -0.026, 0, -1.1364961e-09, 0, 0, 0)
